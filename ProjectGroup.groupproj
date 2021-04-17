@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{52C2ACAF-CDB3-4043-B0B3-68149A8D9F17}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Application.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="SomeDLL.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Application">
+        <MSBuild Projects="Application.dproj"/>
+    </Target>
+    <Target Name="Application:Clean">
+        <MSBuild Projects="Application.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Application:Make">
+        <MSBuild Projects="Application.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="SomeDLL">
+        <MSBuild Projects="SomeDLL.dproj"/>
+    </Target>
+    <Target Name="SomeDLL:Clean">
+        <MSBuild Projects="SomeDLL.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SomeDLL:Make">
+        <MSBuild Projects="SomeDLL.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Application;SomeDLL"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Application:Clean;SomeDLL:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Application:Make;SomeDLL:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
